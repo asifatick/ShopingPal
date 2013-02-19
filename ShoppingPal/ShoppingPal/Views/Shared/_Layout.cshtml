@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/themes/base/css", "~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+
+         @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+    </head>
+    <body>
+        <div id="fb-root"></div>
+            <script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '523783420971712', // App ID
+            status: true, // check login status
+            cookie: true, // enable cookies to allow the server to access the session
+            xfbml: true  // parse XFBML
+        });
+       
+        // Additional initialization code here
+        FB.Event.subscribe('auth.authResponseChange', function (response) {
+            if (response.status === 'connected') {
+                // the user is logged in and has authenticated your
+                // app, and response.authResponse supplies
+                // the user's ID, a valid access token, a signed
+                // request, and the time the access token 
+                // and signed request each expire
+                var uid = response.authResponse.userID;
+                var accessToken = response.authResponse.accessToken;
+               // getData();
+                // TODO: Handle the access token
+
+            } else if (response.status === 'not_authorized') {
+                // the user is logged in to Facebook, 
+                // but has not authenticated your app
+            } else {
+                
+                // the user isn't logged in to Facebook.
+            }
+        });
+
+        getData();
+    };
+
+    // Load the SDK Asynchronously
+    (function (d) {
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        ref.parentNode.insertBefore(js, ref);
+    }(document));  
+
+
+    function getData() {
+        FB.getLoginStatus(function (response) {
+            if (response.status === 'connected') {
+                var accessToken = response.authResponse.accessToken;
+                $.post('@Url.Action("UserInfo", "Account")',
+            { 'accessToken': accessToken },
+            function (data, statusText) {
+                var name = data.name;
+                var id = data.id;
+                var email = data.email;
+                $("#usrName").html(email);
+            });
+            }
+            else {
+                $.post('@Url.Action("UserResign", "Account")',
+                        function (data, statusText) {
+                            $("#usrName").html("User Loged Out.");
+                        });
+            }
+    });
+    }
+
+    function FBLogin() {
+        FB.login(function (response) {
+            // handle the response
+            //if (response.authResponse) {
+            //    console.log('Welcome!  Fetching your information.... ');
+            //    FB.api('/me', function (response) {
+            //        console.log('Good to see you, ' + response.name + '.');
+            //    });
+            //}
+        }, { scope: 'email,user_likes,publish_stream' });
+
+    }
+
+
+    $(document).ready(function () {
+        $("#solTitle a").click(function () {
+            //Do stuff when clicked
+            FBLogin()
+        });
+      
+    });
+
+</script>
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title">@Html.ActionLink("Your logo here", "Index", "Home")</p>
+                </div>
+                <div class="float-right">
+                    <section id="login">
+                       <div id = "solTitle"> <a href="#">Login</a></div>
+                        <div id="usrName"></div>
+                        @Html.Partial("_LoginPartial")
+                    </section>
+                    <nav>
+                        <ul id="menu">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+                </div>
+                <div class="float-right">
+                    <ul id="social">
+                        <li><a href="http://facebook.com" class="facebook">Facebook</a></li>
+                        <li><a href="http://twitter.com" class="twitter">Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+
+       
+    </body>
+</html>

@@ -1,0 +1,38 @@
+@model ShoppingPal.Models.Settings
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Settings</legend>
+
+    <div class="display-label">FacebookID</div>
+    <div class="display-field">@Model.FacebookID</div>
+
+    <div class="display-label">Age</div>
+    <div class="display-field">@Model.Age</div>
+
+    <div class="display-label">BirthDay</div>
+    <div class="display-field">@String.Format("{0:g}", Model.BirthDay)</div>
+
+    <div class="display-label">FavColor</div>
+    <div class="display-field">@Model.FavColor</div>
+
+    <div class="display-label">FavCollection</div>
+    <div class="display-field">@Model.FavCollection</div>
+
+    <div class="display-label">Gender</div>
+    <div class="display-field">@Model.Gender</div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+
+

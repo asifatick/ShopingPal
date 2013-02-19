@@ -1,0 +1,77 @@
+@model IEnumerable<ShoppingPal.Models.WDItem>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            ItemId
+        </th>
+        <th>
+            GotAt
+        </th>
+        <th>
+            ItemName
+        </th>
+        <th>
+            ItemDescription
+        </th>
+        <th>
+            ShopName
+        </th>
+        <th>
+            IsPublished
+        </th>
+        <th>
+            CreditEarned
+        </th>
+        <th>
+            User
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+        <td>
+			@item.ItemId
+        </td>
+        <td>
+			@String.Format("{0:g}", item.GotAt)
+        </td>
+        <td>
+			@item.ItemName
+        </td>
+        <td>
+			@item.ItemDescription
+        </td>
+        <td>
+			@item.ShopName
+        </td>
+        <td>
+			@item.IsPublished
+        </td>
+        <td>
+			@String.Format("{0:F}", item.CreditEarned)
+        </td>
+        <td>
+			@(item.User == null ? "None" : item.User.LastName)
+        </td>
+    </tr>
+}
+
+</table>
+
+

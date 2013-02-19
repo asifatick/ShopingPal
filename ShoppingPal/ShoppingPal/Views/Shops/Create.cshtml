@@ -1,0 +1,57 @@
+@model ShoppingPal.Models.Shop
+
+@{
+    ViewBag.Title = "Create";
+}
+@section scripts{
+    <script type="text/javascript" >
+
+        function createShop() {
+            $.post("create",
+                 $(cform).serialize(),
+                 function (data) {
+                     $("#priview").html(data);
+                 });
+
+
+        }
+
+
+        $(document).ready(function () {
+
+            $(cform).bind("submit", function (event) {
+
+                createShop();
+                event.preventDefault();
+
+            });
+        }
+        );
+
+    </script>
+    
+    }
+ <div id="priview">
+        <h2>Create</h2>
+
+        @using (Html.BeginForm(null, null, FormMethod.Post,new {name="cform"}))
+        {
+            @Html.ValidationSummary(true)
+            <fieldset>
+                <legend>Shop</legend>
+       
+		        @Html.Partial("_CreateOrEdit", Model)
+           
+                <p>
+                    <div id="create">Post </div>
+                    <input name="submit" type="submit" value="Create" />
+                </p>
+            </fieldset>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+    
+        </div>
+
+      </div>

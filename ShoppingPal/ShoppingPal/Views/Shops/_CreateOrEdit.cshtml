@@ -1,0 +1,82 @@
+@model ShoppingPal.Models.Shop
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Name)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Name)
+    @Html.ValidationMessageFor(model => model.Name)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.LogoLocation)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.LogoLocation)
+    @Html.ValidationMessageFor(model => model.LogoLocation)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Description)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Description)
+    @Html.ValidationMessageFor(model => model.Description)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Title)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Title)
+    @Html.ValidationMessageFor(model => model.Title)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Address)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Address)
+    @Html.ValidationMessageFor(model => model.Address)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Lat)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Lat)
+    @Html.ValidationMessageFor(model => model.Lat)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Long)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Long)
+    @Html.ValidationMessageFor(model => model.Long)
+</div>
+
+<div class="editor-label">
+    City
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.CityId, ((IEnumerable<ShoppingPal.Models.City>)ViewBag.PossibleCities).Select(option => new SelectListItem {
+        Text = (option == null ? "None" : option.Name), 
+        Value = option.Id.ToString(),
+        Selected = (Model != null) && (option.Id == Model.CityId)
+    }), "Choose...")
+    @Html.ValidationMessageFor(model => model.CityId)
+</div>
+<div class="editor-label">
+    PO
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.POId, ((IEnumerable<ShoppingPal.Models.PO>)ViewBag.PossiblePOes).Select(option => new SelectListItem {
+        Text = (option == null ? "None" : option.Name), 
+        Value = option.Id.ToString(),
+        Selected = (Model != null) && (option.Id == Model.POId)
+    }), "Choose...")
+    @Html.ValidationMessageFor(model => model.POId)
+</div>

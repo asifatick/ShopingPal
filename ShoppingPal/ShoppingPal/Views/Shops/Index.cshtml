@@ -1,0 +1,89 @@
+@model IEnumerable<ShoppingPal.Models.Shop>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            Name
+        </th>
+        <th>
+            LogoLocation
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Lat
+        </th>
+        <th>
+            Long
+        </th>
+        <th>
+            Owner
+        </th>
+        <th>
+            Styles
+        </th>
+        <th>
+            Items
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+        <td>
+			@item.Name
+        </td>
+        <td>
+			@item.LogoLocation
+        </td>
+        <td>
+			@item.Description
+        </td>
+        <td>
+			@item.Title
+        </td>
+        <td>
+			@item.Address
+        </td>
+        <td>
+			@String.Format("{0:F}", item.Lat)
+        </td>
+        <td>
+			@String.Format("{0:F}", item.Long)
+        </td>
+        <td>
+			@(item.Owner == null ? "None" : item.Owner.LastName)
+        </td>
+        <td>
+			@(item.Styles == null ? "None" : item.Styles.Count.ToString())
+        </td>
+        <td>
+			@(item.Items == null ? "None" : item.Items.Count.ToString())
+        </td>
+    </tr>
+}
+
+</table>
+
+

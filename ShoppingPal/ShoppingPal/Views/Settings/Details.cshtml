@@ -1,0 +1,35 @@
+@model ShoppingPal.Models.Settings
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Settings</legend>
+
+    <div class="display-label">FacebookID</div>
+    <div class="display-field">@Model.FacebookID</div>
+
+    <div class="display-label">Age</div>
+    <div class="display-field">@Model.Age</div>
+
+    <div class="display-label">BirthDay</div>
+    <div class="display-field">@String.Format("{0:g}", Model.BirthDay)</div>
+
+    <div class="display-label">FavColor</div>
+    <div class="display-field">@Model.FavColor</div>
+
+    <div class="display-label">FavCollection</div>
+    <div class="display-field">@Model.FavCollection</div>
+
+    <div class="display-label">Gender</div>
+    <div class="display-field">@Model.Gender</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

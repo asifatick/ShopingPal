@@ -1,0 +1,74 @@
+@model ShoppingPal.Models.ShopItems
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Name)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Name)
+    @Html.ValidationMessageFor(model => model.Name)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Description)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Description)
+    @Html.ValidationMessageFor(model => model.Description)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.ImageLocation)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.ImageLocation)
+    @Html.ValidationMessageFor(model => model.ImageLocation)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Price)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Price)
+    @Html.ValidationMessageFor(model => model.Price)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Credit)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Credit)
+    @Html.ValidationMessageFor(model => model.Credit)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.IsCreditOnPercent)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.IsCreditOnPercent)
+    @Html.ValidationMessageFor(model => model.IsCreditOnPercent)
+</div>
+
+<div class="editor-label">
+    StyleCollection
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.StyleCollectionId, ((IEnumerable<ShoppingPal.Models.StyleCollection>)ViewBag.PossibleStyleCollections).Select(option => new SelectListItem {
+        Text = (option == null ? "None" : option.Name), 
+        Value = option.Id.ToString(),
+        Selected = (Model != null) && (option.Id == Model.StyleCollectionId)
+    }), "Choose...")
+    @Html.ValidationMessageFor(model => model.StyleCollectionId)
+</div>
+<div class="editor-label">
+    Shop
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.ShopId, ((IEnumerable<ShoppingPal.Models.Shop>)ViewBag.PossibleShops).Select(option => new SelectListItem {
+        Text = (option == null ? "None" : option.Name), 
+        Value = option.Id.ToString(),
+        Selected = (Model != null) && (option.Id == Model.ShopId)
+    }), "Choose...")
+    @Html.ValidationMessageFor(model => model.ShopId)
+</div>
