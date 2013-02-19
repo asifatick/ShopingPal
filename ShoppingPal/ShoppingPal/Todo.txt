@@ -1,0 +1,7 @@
+﻿DashBoard
+1. Show New + Featured ShopItems on homepage -D
+2. Show Friends shopitems on wall along with shoping activities
+3. Add watch to a Item (Like/Subscribe)
+4. Add Item's to warddrobe
+
+
