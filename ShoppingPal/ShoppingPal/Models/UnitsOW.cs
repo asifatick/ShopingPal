@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace ShoppingPal.Models
@@ -18,10 +19,43 @@ namespace ShoppingPal.Models
             this.context = context;
         }
         private ShoppingPalContext context ;
+        Dictionary<string, object> _ManagerCache;
         private GenericRepository<Shop> _ShopRepository;
         private ItemRepository _ItemRepo;
 
+
+        public T GetManagerInstance<T>()
+        {
+            T instance = default(T);
+
+            if (_ManagerCache != null && _ManagerCache.ContainsKey(typeof(T).Name))
+            {
+                instance = (T)_ManagerCache[typeof(T).Name];
+            }
+            else
+            {
+                Type type = typeof(T);
+                ConstructorInfo ctor = type.GetConstructor(new[] { typeof(ShoppingPalContext) });
+                instance = (T)ctor.Invoke(new object[] { context });
+
+                if (instance != null)
+                {
+                    if (_ManagerCache == null)
+                    {
+                        _ManagerCache = new Dictionary<string, object>();
+                    }
+
+                    _ManagerCache.Add(typeof(T).Name, instance);
+                }
+            }
+
+            return instance;
+        }
+
+
         private FriendMapRepository _FriendRepo;
+
+
 
 
 

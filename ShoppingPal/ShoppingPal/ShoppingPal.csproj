@@ -334,6 +334,7 @@
     <Content Include="Views\Shops\Details.cshtml" />
     <Content Include="Views\Shops\Index.cshtml" />
     <Content Include="Views\Shops\_CreateOrEdit.cshtml" />
+    <Content Include="Views\Item\Buyers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
